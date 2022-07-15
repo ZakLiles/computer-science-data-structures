@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Python Computer Science Data Structures | Devmountain Foundations</title>
+
+      <link
+        href="_static/pygments.css"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link href="_static/devmountain.css" rel="stylesheet" type="text/css" />
+          <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+          <link rel="stylesheet" type="text/css" href="_static/devmountain.css" />
+          <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+          <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+
+      <script src="_static/pdfobject.min.js"></script>
+      
+  </head>
+  <body>
+      <div id="handouts-container">
+        <header id="page-header">
+            <p id="project-title">Devmountain Foundations</p>
+            <p id="page-title">Python Computer Science Data Structures</p>
+              <p id="backlink">
+                <a href="/"> &laquo; Back to Homepage </a>
+              </p>
+        </header>
+
+        <nav id="page-toc"><ul>
+<li><a class="reference internal" href="#">Python Computer Science Data Structures</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#linked-lists-in-python">Linked Lists in Python</a><ul>
+<li><a class="reference internal" href="#part-1-review-code">Part 1: Review Code</a></li>
+<li><a class="reference internal" href="#part-2-use-a-linked-list">Part 2: Use a Linked List</a></li>
+<li><a class="reference internal" href="#part-3-add-a-method">Part 3: Add a Method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stacks-in-python">Stacks in Python</a><ul>
+<li><a class="reference internal" href="#id1">Part 1: Review Code</a></li>
+<li><a class="reference internal" href="#part-2-use-a-stack">Part 2: Use a Stack</a></li>
+<li><a class="reference internal" href="#id2">Part 3: Add a Method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#queues-in-python">Queues in Python</a><ul>
+<li><a class="reference internal" href="#id3">Part 1: Review Code</a></li>
+<li><a class="reference internal" href="#part-2-use-a-queue">Part 2: Use a Queue!</a></li>
+<li><a class="reference internal" href="#id4">Part 3: Add a Method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#trees-in-python">Trees in Python</a><ul>
+<li><a class="reference internal" href="#id5">Part 1: Review Code</a></li>
+<li><a class="reference internal" href="#part-2-use-a-tree">Part 2: Use a Tree</a></li>
+<li><a class="reference internal" href="#id6">Part 3: Add a Method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#graphs-in-python">Graphs in Python</a><ul>
+<li><a class="reference internal" href="#id7">Part 1: Review Code</a></li>
+<li><a class="reference internal" href="#part-2-use-a-graph">Part 2: Use a Graph</a></li>
+<li><a class="reference internal" href="#id8">Part 3: Add a Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+
+        <main id="page-content">
+            <section class="section" id="python-computer-science-data-structures">
+<h1>Python Computer Science Data Structures</h1>
+<section class="section" id="introduction">
+<h2>Introduction</h2>
+<p>Aside from being generally fascinating and useful to know about,
+traditional computer science data structures are a big part of software engineering
+interviews. There are three primary ways that data structures come up in interviews:</p>
+<ol class="arabic simple">
+<li><p>Knowing generally about the data structure’s purpose, common methods, and
+how they are typically used.</p></li>
+<li><p>Being able to actually use a data structure to solve a problem</p></li>
+<li><p>Implementing new behaviors, or methods, for a given data structure</p></li>
+</ol>
+<p>In the following sections, you’ll practice each of these skills for
+stacks, queues, linked lists, and trees.</p>
+</section>
+<section class="section" id="linked-lists-in-python">
+<h2>Linked Lists in Python</h2>
+<section class="section" id="part-1-review-code">
+<h3>Part 1: Review Code</h3>
+<p><strong>Carefully</strong> review the following Python class(es), taking note of the methods,
+attributes, and generally how the class can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Node in a linked list.&quot;&quot;&quot;</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Node object. Data: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">; Next: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="k">else</span> <span class="kc">None</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Linked List using head and tail.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Linked List. Head: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="k">else</span> <span class="kc">None</span><span class="si">}</span><span class="s2">; Tail: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="k">else</span> <span class="kc">None</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Append node with data to end of list.&quot;&quot;&quot;</span>
+
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Did list start as empty?</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_node</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">new_node</span>
+
+    <span class="k">def</span> <span class="nf">print_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print all items in the list.&quot;&quot;&quot;</span>
+
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Does this data exist in our list?&quot;&quot;&quot;</span>
+
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove node with given value&quot;&quot;&quot;</span>
+
+        <span class="c1"># If removing head, make 2nd item (if any) the new .head</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Removing something other than head</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+
+        <span class="k">while</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">current</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+                <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># If removing last item, update .tail</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">current</span>
+                <span class="k">return</span>
+
+            <span class="k">else</span><span class="p">:</span>     <span class="c1"># haven&#39;t found yet, keep traversing</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+</div>
+<p><strong>Carefully review</strong> the following code to see how to instantiate the above class
+to utilize it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ll</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;berry&quot;</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;cherry&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="part-2-use-a-linked-list">
+<h3>Part 2: Use a Linked List</h3>
+<p>Create a new file called <cite>word_shortener.py</cite>, copy the above class into
+the file, and define a function called <cite>shorten_word</cite> which takes in a list
+of words. The function should return a linked list of the same words in the
+same order, but <em>without the first word in the original list</em>.</p>
+</section>
+<section class="section" id="part-3-add-a-method">
+<h3>Part 3: Add a Method</h3>
+<p>Try adding a method to the linked list that returns the length of the linked list.</p>
+<p><strong>Push your work to Github.</strong></p>
+</section>
+</section>
+<section class="section" id="stacks-in-python">
+<h2>Stacks in Python</h2>
+<section class="section" id="id1">
+<h3>Part 1: Review Code</h3>
+<p><strong>Carefully</strong> review the following Python class(es), taking note of the methods,
+attributes, and generally how the class can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Stack</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;LIFO stack.</span>
+
+<span class="sd">    Implemented using a Python list; since stacks just need</span>
+<span class="sd">    to pop and push, a list is a good implementation, as</span>
+<span class="sd">    these are O(1) for native Python lists. However, in cases</span>
+<span class="sd">    where performance really matters, it might be best to</span>
+<span class="sd">    use a Python list directly, as it avoids the overhead</span>
+<span class="sd">    of a custom class.</span>
+
+<span class="sd">    Or, for even better performance (&amp; typically smaller</span>
+<span class="sd">    memory footprint), you can use the `collections.deque`</span>
+<span class="sd">    object, which can act like a stack.</span>
+
+<span class="sd">    (We could also write our own LinkedList class for a</span>
+<span class="sd">    stack, where we push things onto the head and pop things</span>
+<span class="sd">    off the head (effectively reversing it), but that would be less</span>
+<span class="sd">    efficient than using a built-in Python list or a</span>
+<span class="sd">    `collections.deque` object)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inlist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inlist</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_list</span> <span class="o">=</span> <span class="n">inlist</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;Stack (empty)&gt;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Stack tail=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> length=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Allow iteration over list.</span>
+
+<span class="sd">        __iter__ is a special method that, when defined,</span>
+<span class="sd">        allows you to loop over a list, so you can say things</span>
+<span class="sd">        like &quot;for item in my_stack&quot;, and it will pop</span>
+<span class="sd">        successive items off.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">StackEmptyError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add item to end of stack.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove item from end of stack and return it.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">StackEmptyError</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return length of stack.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return, but don&#39;t remove, top item.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Empty stack.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Is stack empty?&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Carefully review</strong> the following code to see how to instantiate the above class
+to utilize it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">([</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;berry&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">])</span>
+<span class="n">fruits</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;durian&quot;</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;durian&quot;</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="part-2-use-a-stack">
+<h3>Part 2: Use a Stack</h3>
+<p>Create a new file called <cite>pancakeshop.py</cite>, copy the above class into
+the file, and define a function called
+<cite>make_short_stack</cite>. The function should <strong>instantiate</strong> a Stack using the
+class above, <strong>add</strong> 3 itemsto the stack, and <strong>return</strong> the stack instance.</p>
+</section>
+<section class="section" id="id2">
+<h3>Part 3: Add a Method</h3>
+<p>Try adding a method to the <cite>Stack</cite> class that removes and returns the top two
+items from the stack. So, it should work like the <cite>pop</cite> method, but instead of
+returning only one item, it should return the top two items.</p>
+<p><strong>Push your work to Github.</strong></p>
+</section>
+</section>
+<section class="section" id="queues-in-python">
+<h2>Queues in Python</h2>
+<section class="section" id="id3">
+<h3>Part 1: Review Code</h3>
+<p><strong>Carefully</strong> review the following Python class(es), taking note of the methods,
+attributes, and generally how the class can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Queue</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;FIFO queue.</span>
+
+<span class="sd">    Implemented as a linked list. This will be slower than</span>
+<span class="sd">    using a Python list for small lists but when the list</span>
+<span class="sd">    size is larger than ~5,000, it becomes faster to use,</span>
+<span class="sd">    as it&#39;s expensive to pop items off the front of a Python</span>
+<span class="sd">    list (this is a O(n) operation, whereas it&#39;s O(1) for</span>
+<span class="sd">    a linked list.</span>
+
+<span class="sd">    This is useful for studying how linked lists work but,</span>
+<span class="sd">    should you want one in a real-world program, see the</span>
+<span class="sd">    `collections.deque object` --- this is a</span>
+<span class="sd">    doubly-linked lists, but it will perform excellently,</span>
+<span class="sd">    given that it is implemented in C.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inlist</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inlist</span><span class="p">)</span>
+
+        <span class="n">prev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">inlist</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="n">prev</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head</span> <span class="o">=</span> <span class="n">prev</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;Queue (empty)&gt;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Queue head=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2"> tail=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2"> length=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add item to end of queue.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">node</span>
+
+    <span class="k">def</span> <span class="nf">dequeue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove item from front of queue and return it.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">QueueEmptyError</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Allow iteration over list.</span>
+
+<span class="sd">        __iter__ is a special method that, when defined,</span>
+<span class="sd">        allows you to loop over a list, so you can say things</span>
+<span class="sd">        like &quot;for item in my_queue&quot;, and it will pop</span>
+<span class="sd">        successive items off.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">dequeue</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">QueueEmptyError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return length of queue.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return, but don&#39;t remove, item at front of queue.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Empty queue.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Is queue empty?&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Carefully review</strong> the following code to see how to instantiate the above class
+to utilize it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">([</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;berry&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">])</span>
+<span class="n">fruits</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="s2">&quot;durian&quot;</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">dequeue</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">fruits</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="part-2-use-a-queue">
+<h3>Part 2: Use a Queue!</h3>
+<p>Create a new file called <cite>printerqueue.py</cite>, copy the above class into
+the file, and define a function called <cite>add_jobs</cite>. The function should
+take in a list of documents (as strings), and it should create and return
+a new Queue instance, with all of the documents in the list added to the
+new Queue instance.</p>
+</section>
+<section class="section" id="id4">
+<h3>Part 3: Add a Method</h3>
+<p>Try adding a method to the <cite>Queue</cite> class that takes in an item (could be
+of any type) and swaps the given item to be the first item in line in
+the queue. It should not return anything.</p>
+<p><strong>Push your work to Github.</strong></p>
+</section>
+</section>
+<section class="section" id="trees-in-python">
+<h2>Trees in Python</h2>
+<section class="section" id="id5">
+<h3>Part 1: Review Code</h3>
+<p><strong>Carefully</strong> review the following Python class(es), taking note of the methods,
+attributes, and generally how the class can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Node in a tree.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">children</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reader-friendly representation.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Node </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return node object with this data.</span>
+
+<span class="sd">        Start here. Return None if not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">to_visit</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+
+        <span class="k">while</span> <span class="n">to_visit</span><span class="p">:</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">to_visit</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">current</span>
+
+            <span class="n">to_visit</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Tree</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Tree.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reader-friendly representation.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Tree root=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">find_in_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return node object with this data.</span>
+
+<span class="sd">        Start at root.</span>
+<span class="sd">        Return None if not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Carefully review</strong> the following code to see how to instantiate the above class
+to utilize it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resume</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;resume.txt&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">recipes</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;recipes.txt&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">jane</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;jane/&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">resume</span><span class="p">,</span> <span class="n">recipes</span><span class="p">])</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;server.py&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">jessica</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;jessica/&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">server</span><span class="p">])</span>
+<span class="n">users</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Users/&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">jane</span><span class="p">,</span> <span class="n">jessica</span><span class="p">])</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">users</span><span class="p">])</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;server.py = &quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">find_in_tree</span><span class="p">(</span><span class="s2">&quot;server.py&quot;</span><span class="p">))</span>  <span class="c1"># should find</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;style.css = &quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">find_in_tree</span><span class="p">(</span><span class="s2">&quot;style.css&quot;</span><span class="p">))</span>  <span class="c1"># should not find</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="part-2-use-a-tree">
+<h3>Part 2: Use a Tree</h3>
+<p>Create a new file called <cite>org_chart.py</cite>, copy the above class(es) into
+the file, and define a function called <cite>make_tree</cite> which takes in two
+arguments– (1) the name of a CEO, as a string and (2) a list of the
+CEO’s direct reports, as a list of strings. The function should return a
+tree with the CEO as a parent, and the direct reports as children of the
+CEO node.</p>
+</section>
+<section class="section" id="id6">
+<h3>Part 3: Add a Method</h3>
+<p>Try adding a method to the <cite>Tree</cite> class that returns the total number of
+nodes that are present in the tree. Consider a tree that has more than two
+levels- how can you make sure to visit <strong>all</strong> the nodes in the tree?</p>
+<div class="admonition hint">
+<p class="admonition-title">How to visit all nodes</p>
+<details class="admonition-body"><summary></summary><div class="admonition-body docutils container">
+<p>In order to visit all the nodes, you can traverse the tree
+using a stack or a queue to keep track of the nodes you need
+to visit. To ensure you process each and every node in the
+stack or queue, use a while-loop that only exits when the
+stack/queue is empty. This is called a <strong>tree traversal</strong>!</p>
+</div>
+</details></div>
+<p><strong>Push your work to Github.</strong></p>
+</section>
+</section>
+<section class="section" id="graphs-in-python">
+<h2>Graphs in Python</h2>
+<section class="section" id="id7">
+<h3>Part 1: Review Code</h3>
+<p><strong>Carefully</strong> review the following Python class(es), taking note of the methods,
+attributes, and generally how the class can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Node in a graph representing a person.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">adjacent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a person node with friends adjacent&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">adjacent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">adjacent</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adjacent</span><span class="p">,</span> <span class="nb">set</span><span class="p">),</span> \
+            <span class="s2">&quot;adjacent must be a set!&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjacent</span> <span class="o">=</span> <span class="n">adjacent</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Debugging-friendly representation&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Node: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">FriendGraph</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Graph holding people and their friendships.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create an empty graph&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;FriendGraph: </span><span class="si">{</span> <span class="p">{</span><span class="n">n</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">}</span> <span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_person</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a person to our graph&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_friends</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person1</span><span class="p">,</span> <span class="n">person2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set two people as friends&quot;&quot;&quot;</span>
+
+        <span class="n">person1</span><span class="o">.</span><span class="n">adjacent</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">person2</span><span class="p">)</span>
+        <span class="n">person2</span><span class="o">.</span><span class="n">adjacent</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">person1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_people</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">people_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a list of people to our graph&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">people_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">are_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person1</span><span class="p">,</span> <span class="n">person2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Are two people connected? Breadth-first search.&quot;&quot;&quot;</span>
+
+        <span class="n">possible_nodes</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+        <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">possible_nodes</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">person1</span><span class="p">)</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">person1</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">possible_nodes</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="n">person</span> <span class="o">=</span> <span class="n">possible_nodes</span><span class="o">.</span><span class="n">dequeue</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;checking&quot;</span><span class="p">,</span> <span class="n">person</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">person</span> <span class="ow">is</span> <span class="n">person2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">friend</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">adjacent</span> <span class="o">-</span> <span class="n">seen</span><span class="p">:</span>
+                    <span class="n">possible_nodes</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">friend</span><span class="p">)</span>
+                    <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">friend</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;added to queue:&quot;</span><span class="p">,</span> <span class="n">friend</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p><strong>Carefully review</strong> the following code to see how to instantiate the above classes
+to utilize them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add sample friends</span>
+<span class="n">harry</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Harry&quot;</span><span class="p">)</span>
+<span class="n">hermione</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Hermione&quot;</span><span class="p">)</span>
+<span class="n">ron</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Ron&quot;</span><span class="p">)</span>
+<span class="n">neville</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Neville&quot;</span><span class="p">)</span>
+<span class="n">trevor</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Trevor&quot;</span><span class="p">)</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">)</span>
+<span class="n">draco</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Draco&quot;</span><span class="p">)</span>
+<span class="n">crabbe</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Crabbe&quot;</span><span class="p">)</span>
+<span class="n">goyle</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Goyle&quot;</span><span class="p">)</span>
+
+<span class="n">friends</span> <span class="o">=</span> <span class="n">FriendGraph</span><span class="p">()</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">add_people</span><span class="p">([</span><span class="n">harry</span><span class="p">,</span> <span class="n">hermione</span><span class="p">,</span> <span class="n">ron</span><span class="p">,</span> <span class="n">neville</span><span class="p">,</span> <span class="n">fred</span><span class="p">,</span> <span class="n">draco</span><span class="p">,</span> <span class="n">crabbe</span><span class="p">,</span> <span class="n">goyle</span><span class="p">])</span>
+
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">harry</span><span class="p">,</span> <span class="n">hermione</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">harry</span><span class="p">,</span> <span class="n">ron</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">harry</span><span class="p">,</span> <span class="n">neville</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">hermione</span><span class="p">,</span> <span class="n">ron</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">neville</span><span class="p">,</span> <span class="n">hermione</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">neville</span><span class="p">,</span> <span class="n">trevor</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">ron</span><span class="p">,</span> <span class="n">fred</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">draco</span><span class="p">,</span> <span class="n">crabbe</span><span class="p">)</span>
+<span class="n">friends</span><span class="o">.</span><span class="n">set_friends</span><span class="p">(</span><span class="n">draco</span><span class="p">,</span> <span class="n">goyle</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="part-2-use-a-graph">
+<h3>Part 2: Use a Graph</h3>
+<p>Create a new file called <cite>friendship.py</cite>, copy the above class(es) into
+the file, and define a function called <cite>make_simple_friendship</cite>. The function
+should take in the name of three friends, and set up a graph that makes it
+so that each of the three people are friends with each other. There should
+be three nodes, and 2 nodes in each adjacency list.</p>
+</section>
+<section class="section" id="id8">
+<h3>Part 3: Add a Method</h3>
+<p>Add a method to the <cite>FriendGraph</cite> class that prints the name of all of the friend nodes
+that are present in the graph.</p>
+<p><strong>Push your work to Github.</strong></p>
+<p><strong>Congrats! You’re finished with the Python data structures exercise. Nice work!</strong></p>
+</section>
+</section>
+</section>
+
+        </main>
+
+        <footer id="page-footer">
+            <p>&copy; 2022 Devmountain</p>
+        </footer>
+      </div>
+
+      <script src="_static/main.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+  </body>
+</html>
