@@ -106,18 +106,13 @@ def shorten_word(list):
 
 
 if __name__ == '__main__':
-    ll = LinkedList()
-    ll.append("apple")
-    ll.append("berry")
-    ll.append("cherry")
 
+    # Testing the linked list with a list of characters from The Lord of the Rings. Feel free to replace with a list of whatever you would like if you want to try it yourself.
+    my_list = ["Frodo", "Gandalf", "Merry", "Pippen", "Boromir", "Gimli", "Legolas", "Samwise", "Aragorn"]
 
-# Testing the linked list with a list of characters from The Lord of the Rings. Feel free to replace with a list of whatever you would like if you want to try it yourself.
-my_list = ["Frodo", "Gandalf", "Merry", "Pippen", "Boromir", "Gimli", "Legolas", "Samwise", "Aragorn"]
+    # Testing the shorten word function with our new list.
+    my_ll = shorten_word(my_list)
+    my_ll.append("Frodo")
 
-# Testing the shorten word function with our new list.
-my_ll = shorten_word(my_list)
-my_ll.append("Frodo")
-
-# Printing the return of the get_length method we added to our class, and printing it to see if we successfully shortened the list from earlier.
-print(my_ll.get_length())
+    # Printing the return of the get_length method we added to our class, and printing it to see if we successfully shortened the list from earlier.
+    print(my_ll.get_length())
