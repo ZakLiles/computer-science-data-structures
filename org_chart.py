@@ -50,6 +50,26 @@ class Tree():
 
         return self.root.find(data)
 
+    def total_nodes(self):
+
+        node_count = 0
+
+        to_visit = [self.root]
+
+        while to_visit:
+            node_count += 1
+            current = to_visit.pop()
+
+            to_visit.extend(current.children)
+        
+        return node_count
+
+def make_tree(ceo, direct_reports):
+
+    node = Node(ceo, direct_reports)
+    tree = Tree(node)
+    return tree
+
 if __name__ == '__main__':
     # Make an example tree and search for things in it
 
@@ -64,4 +84,4 @@ if __name__ == '__main__':
     tree = Tree(root)
     print("server.py = ", tree.find_in_tree("server.py"))  # should find
     print("style.css = ", tree.find_in_tree("style.css"))  # should not find
-
+    print(tree.total_nodes())
